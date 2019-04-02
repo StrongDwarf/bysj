@@ -1,0 +1,86 @@
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+}
+
+.foot-bar {
+	width: 100vw;
+	height: 14vw;
+	position: fixed;
+	bottom: 0px;
+	display: flex;
+	border-top: 1px solid #dddddd;
+	background: #FFFFFF;
+}
+
+.foot-bar-cell {
+	display: inline-block;
+	height: 100%;
+	flex-grow: 1;
+	text-align: center;
+	position: relative;
+	top: 1vw;
+}
+
+.foot-bar-cell-text {
+	position: absolute;
+	top: 8vw;
+	width: 20vw;
+	display: block;
+	font-size: 3vw;
+	color: #000000;
+}
+
+.icon {
+	background-size: 8vw 8vw;
+	width: 8vw;
+	height: 8vw;
+	display: inline-block;
+	opacity: 0.7;
+}
+
+.icon-home {
+	background-image: url("../image/svg/home.svg");
+}
+
+.router-link-active .icon-home {
+	background-image: url("../image/svg/homefill.svg");
+}
+
+.icon-find {
+	background-image: url("../image/svg/find.svg");
+}
+
+.router-link-active .icon-find {
+	background-image: url("../image/svg/findfill.svg");
+}
+
+.icon-buycar {
+	background-image: url("../image/svg/buycar.svg");
+}
+
+.router-link-active .icon-buycar {
+	background-image: url("../image/svg/buycarfill.svg");
+}
+
+.icon-mine {
+	background-image: url("../image/svg/mine.svg");
+}
+
+.router-link-active .icon-mine {
+	background-image: url("../image/svg/minefill.svg");
+}
+
+.icon-news {
+	background-image: url("../image/svg/news.svg");
+}
+
+.router-link-active .icon-news {
+	background-image: url("../image/svg/newsfill.svg");
+}
+
+.router-link-active .foot-bar-cell-text {
+	color: #00d5d5
+}
+

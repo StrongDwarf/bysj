@@ -1,0 +1,98 @@
+.news-header{
+	height:14vw;
+	width: 100vw;
+	background: #00D5D5;
+	z-index:1000;
+}
+.news-header .item{
+	color:#FFFFFF;
+	font-weight: 700;
+	fons-size:6vw;
+	margin:5vw 4vw 4vw 4vw;
+}
+
+.news-icon-container{
+	display: inline-block;
+	float:right;
+}
+
+.news-icon{
+	background-size: 6vw 6vw;
+	width: 6vw;
+	height: 6vw;
+	display: inline-block;
+	float:right;
+}
+.news-icon-friendlist{
+	background-image: url(../image/svg/friendlist.svg);
+	margin: 4vw 1vw 2vw 3vw;
+}
+.news-icon-add{
+	background-image:url("../image/svg/add.svg") ;
+	margin: 4vw 2vw 2vw 4vw;
+	margin-right: 4vw;
+}
+
+.news-body-header{
+	height:9vw;
+	color:#FFFFFF;
+	background-color:#00D5D5;
+}
+
+.news-body-header-text{
+	display: inline-block;
+	margin-left: 4vw;
+	font-size:4vw;
+}
+
+.news-icon-clear{
+	background-size: 5vw 5vw;
+	width: 5vw;
+	height: 5vw;
+	display: inline-block;
+	background-image: url(../image/svg/clear.svg);
+}
+
+
+
+.news-body-container{
+	margin:0vw 2vw 0vw 2vw;
+}
+
+.news-container{
+	height: 22vw;
+}
+
+.news-image{
+	width:18vw;
+	height:18vw;
+	display: inline-block;
+	border:1px solid red;
+}
+.news-container-son{
+	width:74vw;
+	height:18vw;
+	margin-top:2vw;
+	display: inline-block;
+	border-bottom:1px solid #DDDDDD;
+	position:relative;
+	top:2vw;
+}
+
+.news-container-son .user-name{
+	font-size:5vw;
+	color:#000000;
+}
+
+.news-container-son .time{
+	font-size:3vw;
+	color:#999999;
+	float:right;
+}
+
+.news-container-son p{
+	width:72vw;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+}

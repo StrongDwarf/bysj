@@ -1,0 +1,145 @@
+.order-bar {
+	background-color: #00D5D5;
+	height: 14vw;
+	width: 100vw;
+}
+
+.order-bar input {
+	width: 50vw;
+	height: 8vw;
+	border-radius: 4vw;
+	margin-top: 3vw;
+	margin-left: 4vw;
+}
+
+.order-bar-name {
+	margin: 4vw;
+	margin-left: 3vw;
+	float: left;
+	color: #FFFFFF;
+	font-weight: 700;
+	fons-size: 6vw;
+}
+
+.order-bar-text {
+	margin: 4vw;
+	margin-right: 3vw;
+	float: right;
+	font-size: 4vw;
+	color: #FFFFFF;
+}
+
+.order-body-son-one {
+	height: 30vw;
+	color: #FFFFFF;
+	background-color: #00D5D5;
+}
+
+.order-body-text {
+	display: inline-block;
+	margin-left: 4vw;
+	font-size: 4vw;
+	color: #FFFFFF;
+}
+
+.order-container {
+	margin: 0vw 3vw 0vw 3vw;
+	border: 1px solid red;
+	margin-top: -20vw;
+}
+
+.order-item {
+	background-color: #FFFFFF;
+	border-radius: 4vw;
+	margin-bottom: 3vw;
+}
+
+.order-item-shop {
+	display: inline-block;
+	margin: 2vw;
+	border: 1px solid red;
+}
+
+.order-icon {
+	background-size: 6vw 6vw;
+	width: 6vw;
+	height: 6vw;
+	display: inline-block;
+	opacity: 0.7;
+	position: relative;
+	top: 1.5vw;
+}
+
+.order-shop-name {
+	font-size: 4vw;
+	color: #333;
+
+}
+
+.order-icon-shop {
+	background-image: url(../../image/svg/shop.svg);
+}
+
+.order-icon-right {
+	background-image: url(../../image/svg/right.svg);
+}
+
+.order-container-son {
+	border: 1px solid red;
+	margin: 0vw 2vw 0vw 2vw;
+	padding-bottom: 2vw;
+}
+
+.order-image {
+	display: inline-block;
+	width: 30vw;
+	height: 30vw;
+	border: 1px solid red;
+}
+
+.order-text-container {
+	border: 1px solid red;
+	display: inline-block;
+	width: 56vw;
+	height: 30vw;
+	overflow: hidden;
+}
+
+.order-icon-down {
+	background-size: 4vw 4vw;
+	width: 4vw;
+	height: 4vw;
+	display: inline-block;
+	opacity: 0.7;
+	background-image: url(../../image/svg/down.svg);
+	margin:0px;
+	margin-left:2vw;
+	padding-top: 1vw;
+	position: relative;
+	top:1vw;
+}
+
+.order-intro {
+	word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 2; 
+    overflow: hidden; 
+	
+	font-size:4vw;
+	color:#333;
+	border:1px solid red;
+	margin: 0px;
+}
+
+.order-classify{
+	border: 1px solid red;
+	margin: 0px;
+	display: inline-block;
+	padding:0px;
+	font-size:3vw;
+	height:6vw;
+	
+	background-color:#f3f3f3;
+}

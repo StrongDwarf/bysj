@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="./css/mui.min.css" rel="stylesheet" />
+		<link href="./css/elementUi.css" rel="stylesheet" />
+		<link href="./css/fs.css" rel="stylesheet" />
+		<link href="./css/home.css" rel="stylesheet" />
+		<link href="./css/news.css" rel="stylesheet" />
+		<link href="./css/order/order.css" rel="stylesheet" />
+		<script src="./js/contentLoadedBefore.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+			<div class="foot-bar">
+				<div class="foot-bar-cell">
+					<router-link to="/home">
+						<span class="icon icon-home"></span>
+						<span class="foot-bar-cell-text">首页</span>
+					</router-link>
+				</div>
+				<div class="foot-bar-cell">
+					<router-link to="/find">
+						<span class="icon icon-find"></span>
+						<span class="foot-bar-cell-text">发现</span>
+					</router-link>
+				</div>
+				<div class="foot-bar-cell">
+					<router-link to="/news">
+						<span class="icon icon-news"></span>
+						<span class="foot-bar-cell-text">消息</span>
+					</router-link>
+				</div>
+				<div class="foot-bar-cell">
+					<router-link to="/order">
+						<span class="icon icon-buycar"></span>
+						<span class="foot-bar-cell-text">售物仓</span>
+					</router-link>
+				</div>
+				<div class="foot-bar-cell">
+					<router-link to="/personal">
+						<span class="icon icon-mine"></span>
+						<span class="foot-bar-cell-text">个人中心</span>
+					</router-link>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--
+	<script src="js/mui.min.js"></script> -->
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+	<script src="js/elementUi.js"></script>
+	<script src="js/api.js"></script>
+	<script src="js/globalMain.js"></script>
+	
+	<!-- 子组件 -->
+	<script src="js/home/home.js"></script>
+	<script src="js/news/news.js"></script>
+	<script src="js/order/order.js"></script>
+	<script>
+		document.addEventListener('plusready', function() {
+			
+			const Home = {
+				template:`
+				<div>
+					<div style="height:14vw;position:fixed;z-index:1000">
+						<home-search></home-search>
+					</div>
+					<div style="overflow-y:scroll;padding-top:16vw">
+						<home-banner></home-banner>
+						<home-classify></home-classify>
+						<home-products></home-products>
+					</div>
+					
+				</div>`,
+			}
+
+			const Find = {
+				template: '<div>find</div>'
+			}
+			const News = {
+				template: `
+				<div>
+					<div style="height:14vw;position:fixed;z-index:1000">
+					<news-header></news-header>
+					</div>
+					<div style="overflow-y:scroll;padding-top:14vw">
+					<news-body></news-body>
+					</div>
+				</div>`,
+			}
+			const Order = {
+				template: `
+				<div>
+					<div style="height:14vw;position:fixed;z-index:1000">
+						<order-header></order-header>
+					</div>
+					<div style="overflow-y:scroll;padding-top:14vw">
+						<order-body></order-body>
+					</div>
+				</div>`,
+			}
+			const Personal = {
+				template: '<div>personal</div>'
+			}
+
+			const routes = [{
+					path: '*',
+					redirect: '/home'
+				},
+				{
+					path: '/home',
+					component: Home
+				},
+				{
+					path: '/find',
+					component: Find
+				},
+				{
+					path: '/news',
+					component: News
+				},
+				{
+					path: '/order',
+					component: Order
+				},
+				{
+					path: '/personal',
+					component: Personal
+				}
+			]
+
+			const router = new VueRouter({
+				routes // (缩写) 相当于 routes: routes
+			})
+
+			const app = new Vue({
+				router
+			}).$mount('#app')
+		})
+	</script>
+</html>

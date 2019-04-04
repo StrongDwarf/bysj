@@ -1,0 +1,124 @@
+.personal-bar {
+	background-color: #00D5D5;
+	height: 18vw;
+	width: 100vw;
+}
+
+.personal-bar-left{
+	float: left;
+	height:14vw;
+	margin: 2vw;
+}
+
+.personal-bar-left .personal-head-pic{
+	display: inline-block;
+	width: 14vw;
+	height:14vw;
+	border:1px solid red;
+}
+.personal-bar-left .personal-head-name{
+	display: inline-block;
+	position: relative;
+	bottom: 2vw;
+	font-size: 5vw;
+	color:#fff;
+	font-weight: 700;
+}
+
+.personal-bar-right{
+	float: right;
+	margin: 3vw;
+}
+
+
+.personal-bar-icon {
+	background-size: 6vw 6vw;
+	width: 6vw;
+	height: 6vw;
+	display: inline-block;
+	position: relative;
+	top: 1.5vw;
+}
+
+.personal-icon-setup {
+	background-image: url(../../image/svg/setup.svg);
+}
+
+.personal-body{
+	
+}
+
+.personal-body-son-one{
+	background-color:#00D5D5;
+	height:22vw;
+	margin-bottom:-10vw;
+}
+
+.personal-container{
+	margin-left:3vw;
+	margin-right:3vw;
+}
+
+.personal-item{
+	margin-bottom:3vw;
+	background-color:#fff;
+	border-radius:4vw;
+	display: flex;
+}
+
+.personal-item-item{
+	flex-grow:1;
+	display: inline-block;
+	font-size:3vw;
+	text-align: center;
+}
+
+.personal-icon{
+	background-size: 8vw 8vw;
+	width: 8vw;
+	height: 8vw;
+	display: inline-block;
+}
+
+.personal-item-item-text {
+	width: 100%;
+	display: block;
+	font-size: 3vw;
+	color: #000000;
+}
+
+.personal-icon-collection{
+	background-image: url(../../image/svg/personal/collection.svg);
+}
+
+.personal-icon-like{
+	background-image: url(../../image/svg/personal/like.svg);
+}
+
+.personal-icon-daifadan{
+	background-image:url(../../image/svg/personal/daifadan.svg);
+}
+
+.personal-icon-daifahuo{
+	background-image:url(../../image/svg/personal/daifahuo.svg);
+}
+
+.personal-icon-daishouhuo{
+	background-image:url(../../image/svg/personal/daishouhuo.svg);
+}
+
+.personal-icon-kefu{
+	background-image:url(../../image/svg/personal/kefu.svg)
+}
+
+.personal-icon-yijian{ 
+	background-image:url(../../image/svg/personal/yijian.svg)
+}
+
+.personal-icon-fous{
+	background-image:url(../../image/svg/personal/fous.svg);
+}
+
+.personal-icon-signout{
+	background-image:url(../../image/svg/personal/signout.svg);
+}

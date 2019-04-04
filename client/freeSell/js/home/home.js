@@ -25,8 +25,14 @@ Vue.component('home-banner', {
 	<div style="width:100vw;overflow:hidden;">
 	<div style="width:120vw;margin-left:-10vw">
 			<el-carousel :interval="2000" type="card" height="40vw">
-				<el-carousel-item v-for="item in 6" :key="item">
-				  <h3>{{ item }}</h3>
+				<el-carousel-item>
+				  <span class="home-banner-img home-banner-img1"></span>
+				</el-carousel-item>
+				<el-carousel-item>
+				  <span class="home-banner-img home-banner-img2"></span>
+				</el-carousel-item>
+				<el-carousel-item>
+				  <span class="home-banner-img home-banner-img3"></span>
 				</el-carousel-item>
 			 </el-carousel>
   </div>
@@ -34,7 +40,17 @@ Vue.component('home-banner', {
 	`,
 	data() {
 		return {
-
+			imgStyleLists:[{
+				id:'1',
+				style:'background-image = url(../image/img/home/timg.jpg);'
+			},{
+				id:'2',
+				style:'background-image = url(../image/img/home/timg3.jpg);'
+			},{
+				id:'3',
+				style:'background-image = url(../image/img/home/timg4.jpg);'
+			},
+			]
 		}
 	}
 })
@@ -43,16 +59,40 @@ Vue.component('home-classify',{
 	template:`
 		<div class="home-classify-container">
 			<el-row :gutter="20">
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				<span class="home-icon-classify home-icon-classify-nanzhuang"></span>
+				<span class="home-class-text">男装</span>
+			</div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				<span class="home-icon-classify home-icon-classify-nvzhuang"></span>
+				<span class="home-class-text">女装</span>
+			  </div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				<span class="home-icon-classify home-icon-classify-yundonghuwai"></span>
+				<span class="home-class-text">户外</span>
+			  </div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+			    <span class="home-icon-classify home-icon-classify-riyongbaihuo"></span>
+			    <span class="home-class-text">百货</span>
+			  </div></el-col>
 			</el-row>
 			<el-row :gutter="20">
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-			  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				<span class="home-icon-classify home-icon-classify-shoujishuma"></span>
+				<span class="home-class-text">数码</span>
+			  </div></el-col>
+			  <el-col :span="6"><div class="grid-content"> 
+				<span class="home-icon-classify home-icon-classify-tushuleqi"></span>
+				<span class="home-class-text">图书</span>
+			  </div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				  <span class="home-icon-classify home-icon-classify-chongwu"></span>
+				  <span class="home-class-text">宠物</span>
+			  </div></el-col>
+			  <el-col :span="6"><div class="grid-content">
+				<span class="home-icon-classify home-icon-classify-more"></span>
+				<span class="home-class-text">更多</span>
+			  </div></el-col>
 			</el-row>
 		</div>`,
 	

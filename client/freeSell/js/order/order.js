@@ -36,7 +36,7 @@ Vue.component('order-body',{
 						<div class="order-text-container">
 							<p class="order-intro">pp6ICU夏季短袖一爱好地位还很低阿尔会返回巴克覅ifhi饿啊你看擦卡夫卡</p>
 							<p class="order-classify">白色:xl[179-185/160-190]<span class="order-icon-down"></span></p>
-							<p><span class="order-price">¥78</span><span class="order-times">已发单435次</span></p>
+							<p class="order-price-times"><span class="order-price">¥78</span><span class="order-times">已发单435次</span><span class="order-button">发单</span></p>
 						</div>
 					</div>
 				</div>

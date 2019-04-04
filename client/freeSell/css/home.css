@@ -26,7 +26,7 @@
 .home-search{
 	width:100vw;
 	height:14vw;
-	background-color:#FFFFFF ;
+	background-color:#00D5D5 ;
 }
 .home-search input{
 	display: inline-block;
@@ -41,18 +41,35 @@
 	width: 8vw;
 	height: 8vw;
 	display: inline-block;
-	opacity: 0.7;
-	background-color:red;
 	position: relative;
 	top:3vw;
 }
 .home-icon-say{
-	background-image: url("../image/svg/say.svg");
+	background-image: url("../image/svg/home/say.svg");
 }
 .home-icon-photo{
 	margin-left:3vw;
-	background-image: url("../image/svg/photo.svg");
+	background-image: url("../image/svg/home/photo.svg");
 }
+
+/* 首页banner样式 */
+.home-banner-img{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+}
+.home-banner-img1{
+	background-image: url(../image/img/home/timg.jpg);
+}
+.home-banner-img2{
+	background-image: url(../image/img/home/timg3.jpg);
+}
+.home-banner-img3{
+	background-image: url(../image/img/home/timg4.jpg);
+}
+
 
 /* 首页分类样式 */
 .home-classify-container{
@@ -78,14 +95,68 @@
     background: #e5e9f2;
   }
  .home-classify-container  .grid-content {
-    border-radius: 4px;
-    min-height: 50px;
   }
  .home-classify-container  .row-bg {
     padding: 6vw 0;
     background-color: #f9fafc;
   }
   
+.home-classify-container .grid-content{
+	display: inline-block;
+	width:14vw;
+	height:14vw;
+	text-align:center;
+	border-radius: 7vw;
+	background-color: #FFFFFF;
+}
+.grid-content span{
+	display: block;
+}
+.home-icon-classify{
+	background-size: 8vw 8vw;
+	width: 8vw;
+	height: 8vw;
+	margin:0 auto;
+	margin-top:2vw;
+	margin-bottom:-1vw;
+}
+
+.home-icon-classify-nanzhuang{
+	background-image: url(../image/svg/home/nanzhuang.svg);
+}
+
+.home-icon-classify-nvzhuang{
+	background-image: url(../image/svg/home/nvzhuang.svg);
+}
+
+.home-icon-classify-yundonghuwai{
+	background-image: url(../image/svg/home/yundonghuwai.svg);
+}
+
+.home-icon-classify-riyongbaihuo{
+	background-image: url(../image/svg/home/riyongbaihuo.svg);
+}
+
+.home-icon-classify-shoujishuma{
+	background-image: url(../image/svg/home/shoujishuma.svg);
+}
+
+.home-icon-classify-tushuleqi{
+	background-image: url(../image/svg/home/tushuleqi.svg);
+}
+
+.home-icon-classify-chongwu{
+	background-image: url(../image/svg/home/chongwu.svg);
+}
+
+.home-icon-classify-more{
+	background-image: url(../image/svg/home/more.svg);
+}
+
+.home-class-text{
+	font-size:3vw;
+}
+
 /* 首页产品样式 */
 .home-products-container{
 	width:50vw;
@@ -94,7 +165,6 @@
 
 .home-products-container .home-products-item{
 	margin:2vw;
-	border:1px solid red;
 }
 
 .home-products-container .home-products-img{

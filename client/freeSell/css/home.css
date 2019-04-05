@@ -13,9 +13,9 @@
     background-color: #99a9bf;
   }
   
-  .el-carousel__item:nth-child(2n+1) {
+.el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
-  }
+}
 
   .el-carousel__item--card{
 	  width:50%;
@@ -75,9 +75,14 @@
 .home-classify-container{
 	margin-left:6vw;
 	margin-right:6vw;
+	padding-top:4vw;
+	padding-bottom:4vw;
+	border-radius: 5vw;
+	background-color:#ffffff;
 }
 .home-classify-container .el-row {
-    margin-bottom: 20px;
+	margin-top:3vw;
+	margin-bottom:3vw;
     &:last-child {
       margin-bottom: 0;
     }
@@ -95,6 +100,7 @@
     background: #e5e9f2;
   }
  .home-classify-container  .grid-content {
+	 margin-left:2vw;
   }
  .home-classify-container  .row-bg {
     padding: 6vw 0;
@@ -158,6 +164,10 @@
 }
 
 /* 首页产品样式 */
+.home-products-container-father{
+	
+}
+
 .home-products-container{
 	width:50vw;
 	float:left;

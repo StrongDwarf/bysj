@@ -8,9 +8,9 @@ Vue.component('home-search', {
 	template:`
 		<div>
 			<div class="home-search">
-				<span class="home-icon home-icon-photo"> </span>
+				<span class="home-icon home-icon-photo" v-on:click="photoHandler"></span>
 				<input class="home-search-input" type="text" v-model="searchStr" placeholder="搜索"></input>
-				<span class="home-icon home-icon-say"> </span>
+				<span class="home-icon home-icon-say" v-on:click="sayHandler"></span>
 			</div>
 		</div>`,
 	data() {
@@ -18,6 +18,28 @@ Vue.component('home-search', {
 			searchStr: '',
 		}
 	},
+	methods:{
+		photoHandler(){
+			plus.nativeUI.toast("点击了图片")
+		},
+		sayHandler(){
+			plus.nativeUI.toast("点击了话筒")
+		}
+	},
+	watch:{
+		searchStr(newVal,oldVal){
+			if(newVal!=oldVal){
+				plus.nativeUI.toast("搜索数据改变了");
+				mui.get(apiUrl.searchProduct + "鞋",{
+						
+					},function(data){
+						//获取数据,打开新页面,并将数据传给新页面
+						
+					},'json'
+				);
+			}
+		}
+	}
 })
 
 Vue.component('home-banner', {
@@ -100,7 +122,7 @@ Vue.component('home-classify',{
 
 Vue.component('home-products',{
 	template:`
-		<div>
+		<div class="home-products-container-father">
 			<div class="home-products-container" style="margin-left:1vw;margin-right:-1vw">
 				<div class="home-products-item" v-for="item in 10" :key="item">
 					<div class="home-products-img" ></div>

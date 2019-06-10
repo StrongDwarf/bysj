@@ -1,0 +1,50 @@
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema;
+var OrderSchema = new Schema({
+    shopName:{
+        type:String
+    },
+    shopIcon:{
+        type:String
+    },
+    shopId:{
+        type:String
+    },
+    productId:{
+        type:String
+    },
+    productImg:{
+        type:String
+    },
+    title:{
+        type:String
+    },
+    location:{
+        type:String
+    },
+    price:{
+        type:String
+    },
+    count:{
+        type:Number
+    },
+    buyer:{
+        type:String
+    },
+    phone:{
+        type:String
+    },
+    address:{
+        type:String
+    },
+    buyCount:{
+        type:Number
+    },
+    buyTime:{
+        type:String
+    },
+    isfahuo:{
+        type:Boolean
+    }
+});
+mongoose.model('Order',OrderSchema)

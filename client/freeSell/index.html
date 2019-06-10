@@ -15,13 +15,38 @@
 			},{
 				url:"speechTest.html",
 				id:"speechTest.html"
+			},{
+				url:"pusherTest.html",
+				id:"pusherTest.html"
+			},{
+				url:"productDetail.html",
+				id:"productDetail.html"
 			}]
       	});
 		document.addEventListener("plusready",function(){
+			
 			mui.openWindow({
 				url:"main.html",
 				id:"main.html"
 			});
+			
+		   /*
+			mui.openWindow({
+				url:"productSearch.html",
+				id:"productSarch.html"
+			}); 
+			*/
+		   /*
+		   mui.openWindow({
+		   	url:"productDetail.html",
+		   	id:"productDetail.html"
+		   });  */
+			/*
+			mui.openWindow({
+				url:"pusherTest.html",
+				id:"pusherTest.html"
+			}); 
+			*/
 			//var self = plus.webview.currentWebview();
 			//self.close();
 		})

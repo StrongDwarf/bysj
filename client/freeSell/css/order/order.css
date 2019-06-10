@@ -164,3 +164,31 @@
 	background-color: #00D5D5;
 	color:#FFFFFF;
 }
+
+.fadan{
+	position:fixed;bottom:0px;left:0px;border:1px solid red;background-color:#ffffff;height:70%;width:100%;
+}
+
+.fadan .label{
+	color:black;
+	font-size:20px;
+	
+}
+
+.fadan .botton span{
+	display: inline-block;
+	width:50%;
+	padding: 10px 0;
+	text-align: center;
+	color:#ffffff;
+}
+.fadan .botton span:nth-child(1){
+	background-color: #00D5D5;
+	border-top-left-radius: 10vw;
+	border-bottom-left-radius:10vw;
+}
+.fadan .botton span:nth-child(2){
+	background-color:#FF5053;
+	border-top-right-radius: 10vw;
+	border-bottom-right-radius:10vw;
+}

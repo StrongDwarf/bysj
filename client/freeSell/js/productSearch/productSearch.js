@@ -14,7 +14,7 @@ Vue.component('product-search',{
 			<div class="product-search-body">
 				<div class="product-menu-container">
 					<div class="product-menu">
-						<div class="product-menu-item">
+						<div class="product-menu-item" v-bind:class="[pmi,checkTag == 1?pmm:'']">
 							<span class="product-menu-item">
 								综合
 							</span>

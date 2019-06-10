@@ -37,7 +37,7 @@ https.get(
 
 
 let url = 'https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general'    //通用物体和场景识别
-let token = "24.18815b0dba76ab065246384685f7b37f.2592000.1556693717.282335-15907065"
+let token = "24.a60f92096f90138f938a3a1d0f9668ad.2592000.1559797563.282335-15907065"
 
 
 fs.readFile('1.jpg', function (err, origin_buffer) {
@@ -82,7 +82,3 @@ function putPostToBaiduAPI(imageStr,token) {
     req.write(contents);
     req.end;
 }
-
-
-
-

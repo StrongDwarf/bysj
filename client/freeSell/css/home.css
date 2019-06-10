@@ -178,6 +178,23 @@
 }
 
 .home-products-container .home-products-img{
-	width:40%;
+	width:100%;
 	min-height: 40vw;
+}
+
+.home-products-intro{
+	word-break: break-all;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2; 
+	overflow: hidden; 
+	
+	font-size:4vw;
+	color:#333;
+	margin: 0px;
+}
+
+.home-products-price span{
+	color:red;
 }

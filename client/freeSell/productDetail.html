@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>商品详情页</title>
+		<link href="./css/mui.min.css" rel="stylesheet" />
+		<link href="./css/elementUi.css" rel="stylesheet" />
+		<link href="./css/iview.css" rel="stylesheet" />
+		<link href="./css/productDetail/productDetail.css" rel="stylesheet" />
+		<script src="./js/contentLoadedBefore.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="header">
+				<div class="header-icon-container">
+					<span class="icon-back"></span>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="footer-left">
+					<div class="footer-left-item">
+						<span class="icon icon-shop"></span>
+						<span class="footer-left-item-text">店铺</span>
+					</div>
+					<div class="footer-left-item">
+						<span class="icon icon-server"></span>
+						<span class="footer-left-item-text">客服</span>
+					</div>
+					<div class="footer-left-item" v-on:click="addCollectionProduct(shopPic,actuonId,seller,imageUrl,item)">
+						<span class="icon icon-collection"></span>
+						<span class="footer-left-item-text">收藏</span>
+					</div>
+				</div>
+				<div class="footer-right">
+					<span  v-on:click="addBuyProdcuts(shopPic,actuonId,seller,imageUrl,item)">加入购物车</span>
+					<span>立即购买</span>
+				</div>
+			</div>
+			<div class="main">
+				<div class="banner">
+					<img class="banner-img" v-bind:src="imageUrl" alt="商品详情页">
+				</div>
+				<div class="title">
+					<p>{{item.title}}</p>
+				</div>
+				<div class="classify-container">
+					<p class="baozhan">
+						<span>保障</span>{subtitle}
+					</p>
+					<p class="standard" v-on:click="showSelect=true">
+						<span>规格</span>{{guige}}<span class="icon-right"></span>
+					</p>
+					<p class="detail" v-on:click="showprops=true">
+						<span>参数</span>商品详细参数<span class="icon-right"></span>
+					</p>
+				</div>
+				<div class="shop-container">
+					<div class="shop-up">
+						<div class="shop-pic">
+							<img :src="shopPic" alt="店铺图标" style="display: block;width: 100%;height: 100%;">
+						</div>
+						<p>
+							<span>{{seller.shopName}}</span>
+							<span>全部宝贝</span>
+							<span>进店逛逛</span>
+						</p>
+					</div>
+					<div class="shop-down">
+						<span>宝贝描述{{seller.evaluates[0].score}}</span>
+						<span>卖家服务{{seller.evaluates[1].score}}</span>
+						<span>物流服务{{seller.evaluates[2].score}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="standard-select" v-show="showSelect">
+				<div class="standard-select-container">
+					<p class="standard-select-container-header"><span v-on:click="showSelect=false">关闭</span></p>
+					<div class="standard-select-item" v-for="itm in item.props">
+						<p class="select-item-name">{{itm.name}}</p>
+						<div class="select-item-tags">
+							<span class="select-item-tag" v-for="itemitem in itm.values">
+								{{itemitem.name}}
+							</span>
+						</div>
+					</div>
+					<div class="select-count-container">
+						<p class="select-item-name">数量</p>
+						<div class="select-item-tags">
+							<p class="select-count-p">
+								<span class="select-count-add" v-on:click="count++">+</span>
+								<span class="select-count">{{count}}</span>
+								<span class="select-count-dec" v-on:click="decfunc">-</span>
+								<p>
+						</div>
+					</div>
+					<p class="standard-select-footer">
+						<span >加入购物车</span>
+						<span>立即购买</span>
+					</p>
+				</div>
+			</div>
+			<div class="product-props" v-show="showprops">
+				<p class="product-props-title">产品参数</p>
+				<p class="product-props-item" v-for="itm in groupProps">
+					<span class="product-props-item-name">{{itm.name}}
+					</span>
+					<span class="product-props-item-value">
+						{{itm.value}}
+					</span></p>
+				<p class="product-props-footer" v-on:click="showprops=false">完成</p>
+			</div>
+		</div>
+	</body>
+
+	<!-- 通用JS文件  -->
+	<script src="js/mui.min.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/iview.min.js"></script>
+	<script src="js/elementUi.js"></script>
+	<script src="js/globalMain.js"></script>
+	<script src="js/api.js"></script>
+
+	<script>
+		console.log('进入商品详情页')
+		let actuonId = '40463392182'
+		let app;
+		document.addEventListener("updateItemId", function(event) {
+			actuonId = event.detail.id;
+			if (!app) {
+				vuestart();
+			} else {
+				app.actuonId = actuonId
+			}
+		})
+		let vuestart = function() {
+			app = new Vue({
+				data: {
+					seller: {},
+					item: {},
+					guige: '',
+					shopPic: '',
+					count: 1,
+					imageUrl: "http://img.alicdn.com/imgextra/i1/1577723401/O1CN011azhUCfAnnOi6lF_!!0-item_pic.jpg",
+					showSelect: false,
+					showprops: false,
+					detailUrl: 'http://api01.6bqb.com/taobao/detail?apikey=2A560EC2150F9A78A3CA210374CF7253&itemid=',
+					actuonId: '',
+					groupProps: []
+				},
+				watch: {
+
+					actuonId(newVal, oldVal) {
+						var that = this;
+						if (newVal != oldVal) {
+							that.getData();
+						}
+					}
+				},
+				methods: {
+					addBuyProdcuts(shopPic,actuonId,seller,imageUrl,item){
+						var obj = {
+							productId:actuonId,
+							shopName:seller.shopName,
+							shopIcon:shopPic,
+							shopId:seller.shopId,
+							productImg:imageUrl,
+							title:item.title,
+							location:item.location,
+							price:item.sku[1].price,
+						}
+						console.log(JSON.stringify(obj));
+						
+						mui.post(apiUrl.addBuyProduct,obj,function(data){
+							if(data.success){
+								alert('成功加入购物车')
+							}else{
+								alert(data.message)
+							}
+						})
+					},
+					addCollectionProduct(shopPic,actuonId,seller,imageUrl,item){
+						console.log('点击了收藏')
+						var obj = {
+							productId:actuonId,
+							shopName:seller.shopName,
+							shopIcon:shopPic,
+							shopId:seller.shopId,
+							productImg:imageUrl,
+							title:item.title,
+							location:item.location,
+							price:item.sku[1].price,
+						}
+						
+						mui.post(apiUrl.CollectionProduct.addProduct,obj,function(data){
+							if(data.success){
+								alert('收藏成功')
+							}else{
+								alert(data.message)
+							}
+						})
+					},
+					decfunc() {
+						if (this.count > 0) {
+							this.count--
+						}
+					},
+
+					getData() {
+						let that = this;
+						mui.get(that.detailUrl + that.actuonId, function(data) {
+							data = data.data;
+							that.seller = data.seller
+							that.item = data.item
+							/*
+							let guige = ''
+							for (let i = 0, len = data.item.props.length; i < len; i++) {
+								guide += data.item.props[i].name + ' '
+							}
+							that.guige = guige; */
+							that.shopPic = "http:" + data.seller.shopIcon
+
+							let groupProps = []
+
+							let groupArr = data.item.groupProps[0]["基本信息"]
+							for (let i = 0, len = groupArr.length; i < len; i++) {
+								for (let name in groupArr[i]) {
+									let obj = {
+										'name': name,
+										'value': groupArr[i][name]
+									}
+									groupProps.push(obj)
+								}
+							}
+
+							that.imageUrl = 'http:' + data.item.images[0]
+						}, 'json')
+					}
+				},
+				mounted() {
+					console.log('mounted');
+					let that = this
+					that.actuonId = actuonId;
+					that.getData();
+				},
+			}).$mount('#app')
+
+
+		}
+	</script>
+</html>

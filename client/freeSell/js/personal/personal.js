@@ -30,7 +30,7 @@ Vue.component('personal-body',{
 			</div>
 			<div class="personal-container">
 				<div class="personal-item">
-					<div class="personal-item-item">
+					<div class="personal-item-item" v-on:click="openCollectionProduct">
 						<span class="personal-icon personal-icon-collection"></span>
 						<span class="personal-item-item-text">收藏夹</span>
 					</div>
@@ -71,4 +71,12 @@ Vue.component('personal-body',{
 				</div>
 			</div>
 		</div>`,
+	methods: {
+		openCollectionProduct() {
+			var detailView = mui.openWindow({
+				url: "CollectionProduct.html",
+				id: "CollectionProduct.html",
+			});
+		},
+	}
 })

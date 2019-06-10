@@ -23,12 +23,13 @@
 						<span class="foot-bar-cell-text">首页</span>
 					</router-link>
 				</div>
+				<!--
 				<div class="foot-bar-cell">
 					<router-link to="/news">
 						<span class="icon icon-news"></span>
 						<span class="foot-bar-cell-text">消息</span>
 					</router-link>
-				</div>
+				</div> -->
 				<div class="foot-bar-cell">
 					<router-link to="/order">
 						<span class="icon icon-buycar"></span>
@@ -92,12 +93,7 @@
 			const Order = {
 				template: `
 				<div>
-					<div style="height:14vw;position:fixed;z-index:1000">
-						<order-header></order-header>
-					</div>
-					<div style="overflow-y:scroll;padding-top:14vw">
-						<order-body></order-body>
-					</div>
+					<orderA></orderA>
 				</div>`,
 			}
 			const Personal = {

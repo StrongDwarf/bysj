@@ -6,24 +6,451 @@
 		<title></title>
 		<link href="./css/mui.min.css" rel="stylesheet" />
 		<link href="./css/elementUi.css" rel="stylesheet" />
+		<link href="./css/iview.css" rel="stylesheet" />
+		<link href="./css/productSearch/productSearch.css" rel="stylesheet" />
 		<script src="./js/contentLoadedBefore.js"></script>
 	</head>
 	<body>
-		<div id="add">
-			<productSearch></productSearch>
+		<div id="app">
+			<div>
+				<div class="product-search-header">
+					<span class="product-icon product-icon-return"></span>
+					<input class="product-search-input" type="text" v-model="searchStr" placeholder="搜索"></input>
+					<span class="product-icon product-icon-photo" v-on:click="showCreameContainer=true"></span>
+					<span class="product-icon product-icon-say" v-on:click="sayHandler"></span>
+				</div>
+				<div class="product-search-body">
+					<!-- <div class="product-menu-container">
+						
+						<div class="product-menu">
+							<div class="product-menu-item" v-bind:style="style1" v-on:click="getDataByOrder('default','style1')">
+								<span class="product-menu-item">
+									综合
+								</span>
+								<span class="product-menu-icon">
+								</span>
+							</div>
+							<div class="product-menu-item" v-bind:style="style2" v-on:click="getDataByOrder('sale-desc','style2')">
+								<span class="product-menu-item">
+									销量
+								</span>
+								<span class="product-menu-icon">
+								</span>
+							</div>
+							<div class="product-menu-item" v-bind:style="style3" v-on:click="getDataByOrder('price-asc','style3')">
+								<span class="product-menu-item">
+									购价
+								</span>
+								<span class="product-menu-icon">
+								</span>
+							</div>
+							<div class="product-menu-item" v-bind:style="style4" v-on:click="getDataByOrder('price-asc','style4')">
+								<span class="product-menu-item">
+									售价
+								</span>
+								<span class="product-menu-icon">
+								</span>
+							</div>
+						</div>
+						<div class="product-menu-fliter">
+							<span class="product-menu-item">
+								<Button @click="showDrawer = true" type="primary">筛选</Button>
+							</span>
+							<span class="product-menu-icon">
+							</span>
+						</div>
+						
+					</div>-->
+					<div class="product-search-container">
+						<div class="product-search-product-container">
+							<div v-for="item in dataLists">
+								<div class="product-container" v-on:click="openProductDetail(item.id)">
+									<div class="product-img">
+										<img v-bind:src="item.imageUrls[0]" alt="" style="width:100%;height:100%;" />
+									</div>
+									<div class="product-intro">
+										<p class="product-name" v-html="item.title">
+											{{item.title}}
+										</p>
+										<p class="product-price-container">
+											<span>¥{{item.price - item.price * 0.3}}</span>
+											<span>-></span>
+											<span>¥{{item.price}}</span>
+											<span>{{item.sales}}</span>
+										</p>
+										<p class="product-seller">
+											<span>{{item.seller}}</span>
+											<span>进店></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="product-push" id="pageBottom">
+							<p>加载中...</p>
+						</div>
+					</div>
+				</div>
+				<div class="creame-container" v-show="showCreameContainer">
+					<p v-on:click="getCreame">拍照</p>
+					<p v-on:click="getPhotoByGarly">从相册中选择照片</p>
+					<p v-on:click="showCreameContainer=false">取消</p>
+				</div>
+				<Drawer title="分类筛选" :closable="false" v-model="showDrawer">
+					<div class="drawer-container">
+						<div v-for="item in navigatorData" class="drawer-item">
+							<p class="drawer-item-title">{{item.name}}</p>
+							<div class="drawer-item-tags">
+								<span v-for="item2 in item.subIds" class="drawer-item-tag">
+									{{item2.name}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</Drawer>
+				<img id="my-img-id" style="display: none;">
+			</div>
+			<div v-show="showloading" style="z-index:1002;position:fixed;top:0px;left:0px;100vh;width:100vw;">
+				<p style="position: fixed;top:20vh;text-align: center;width:100%;background-color:#ffffff;border:1px solid red;padding: 20vh;">正在识别. 请稍等</p>
+			</div>
 		</div>
 	</body>
+
+	<!-- 通用JS文件  -->
 	<script src="js/mui.min.js"></script>
 	<script src="js/vue.js"></script>
+	<script src="js/iview.min.js"></script>
 	<script src="js/vue-router.js"></script>
 	<script src="js/elementUi.js"></script>
 	<script src="js/api.js"></script>
-	
+	<script src="js/globalMain.js"></script>
+
+	<script src="js/productSearch/productSearch.js"></script>
 	<script>
-		document.addEventListener('plusready', function() {
-			const app = new Vue({
-				
-			}).$mount('#app')
+		let searchStr="运动鞋";
+		let app;
+		document.addEventListener("updateSearchstr", function(event) {
+			searchStr = event.detail.searchStr;
+			if (!app) {
+				vueStart();
+			} else {
+				app.searchStr = searchStr;
+			}
 		})
+		const searchURL = 'https://pub.alimama.com/items/search.json?q=';
+		const searchURLA = 'http://api01.6bqb.com/taobao/search';
+		var vueStart = function() {
+		app = new Vue({
+			data: {
+				style1:'background-color:#999999;color:#ffffff;',
+				style2:'',
+				style3:'',
+				style4:'',
+				showloading:false,
+				showCreameContainer: false,
+				searchStr: "", //搜索字符
+				showDrawer: false,
+				searchData: {}, //搜索接口返回的数据
+				productList: [], //搜索接口返回的产品数据
+				navigatorData: [], //搜索接口返回的导航数据
+				apikey: '2A560EC2150F9A78A3CA210374CF7253',
+				startPrice: '',
+				endPrice: '',
+				page: '',
+				order: 'default',
+				dataLists: [],
+			},
+			methods: {
+				getDataByOrder(str,stylen){
+					if(this.order == str){
+						return
+					}else{
+						this.order == str
+						this.style1 = '';
+						this.style2 = '';
+						this.style3 = '';
+						this.style4 = '';
+						this[stylen] = 'background-color:#999999;color:#ffffff;';
+						this.search()
+					}
+					
+				},
+				openProductDetail(id) {
+					console.log(id);
+					var detailView = mui.openWindow({
+						url: "productDetail.html",
+						id: "productDetail.html",
+					});
+					mui.fire(detailView, "updateItemId", {
+						'id': id
+					})
+				},
+				/*节流请求:如果50ms内没有下一次AJAx请求则发送该请求*/
+				searchTro(){
+					var that = this;
+					if(this.searchTroTID){
+						clearTimeout(this.searchTroTID);
+					}
+					this.searchTroTID = setTimeout(function(){
+						that.search()
+					},50)
+				},
+				search() {
+					let that = this;
+					let str = 'http://api01.6bqb.com/taobao/search?apikey=2A560EC2150F9A78A3CA210374CF7253&keyword=' + that.searchStr +
+						'&order=' + that.order
+					if (that.startPrice) {
+						str += '&startPrice=' + that.startPrice
+					}
+					if (that.endPrice) {
+						str += '&endPrice=' + that.endPrice
+					}
+					mui.get(str, function(data) {
+						console.log('成功请求数据')
+						data = data.data;
+						for (let i = 0, len = data.length; i < len; i++) {
+							data[i].imageUrls[0] = 'http:' + data[i].imageUrls[0]
+						}
+						that.dataLists = [];
+						for(let i = 0;i<15;i++){
+							that.dataLists.push(data[i])
+						}
+						//that.dataLists = data
+					}, 'json')
+				},
+				uploadImg(path) {
+					
+					let that = this
+					that.showloading = true;
+					var img_my = document.getElementById('my-img-id')
+					img_my.src = path;
+					img_my.onload = function() {
+						var data = that.getBase64Image(img_my); //base64编码
+						//console.log(data);
+						//img_my.off('load');                   //关闭加载
+						that.dealImage(data, 400, function(base64) {
+							console.log('开始上传');
+							mui.post(apiUrl.recoImg, {
+								imgData: base64.split(",")[1],
+							}, function(data) {
+								console.log(JSON.stringify(data));
+								alert('识别成功:'+data.keyWord);
+								that.searchStr = data.keyWord;
+								that.showloading = false;
+							}, 'json')
+						})
+
+					}
+				},
+				dealImage(base64, w, callback) {
+					console.log('开始压缩')
+					var newImage = new Image();
+					var quality = 0.6; //压缩系数0-1之间
+					newImage.src = base64;
+					newImage.setAttribute("crossOrigin", 'Anonymous'); //url为外域时需要
+					var imgWidth, imgHeight;
+					console.log('1');
+					newImage.onload = function() {
+						imgWidth = this.width;
+						imgHeight = this.height;
+						console.log('2');
+						var canvas = window.document.createElement("canvas");
+						var ctx = canvas.getContext("2d");
+						if (Math.max(imgWidth, imgHeight) > w) {
+							if (imgWidth > imgHeight) {
+								canvas.width = w;
+								canvas.height = w * imgHeight / imgWidth;
+							} else {
+								canvas.height = w;
+								canvas.width = w * imgWidth / imgHeight;
+							}
+						} else {
+							canvas.width = imgWidth;
+							canvas.height = imgHeight;
+							quality = 0.6;
+						}
+						ctx.clearRect(0, 0, canvas.width, canvas.height);
+						ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+						var base64 = canvas.toDataURL("image/jpeg", quality); //压缩语句
+						// 如想确保图片压缩到自己想要的尺寸,如要求在50-150kb之间，请加以下语句，quality初始值根据情况自定
+						// while (base64.length / 1024 > 150) {
+						// 	quality -= 0.01;
+						// 	base64 = canvas.toDataURL("image/jpeg", quality);
+						// }
+						// 防止最后一次压缩低于最低尺寸，只要quality递减合理，无需考虑
+						// while (base64.length / 1024 < 50) {
+						// 	quality += 0.001;
+						// 	base64 = canvas.toDataURL("image/jpeg", quality);
+						// }
+						console.log('压缩完毕' + base64.length / 1024);
+						callback(base64); //必须通过回调函数返回，否则无法及时拿到该值
+					}
+				},
+
+
+				getBase64Image(img) {
+					var canvas = document.createElement("canvas"); //创建canvas DOM元素，并设置其宽高和图片一样
+					canvas.width = img.width;
+					canvas.height = img.height;
+					var ctx = canvas.getContext("2d");
+					ctx.drawImage(img, 0, 0, img.width, img.height); //使用画布画图
+					var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase(); //动态截取图片的格式
+					var dataURL = canvas.toDataURL("image/" + ext); //返回的是一串Base64编码的URL并指定格式
+					return dataURL;
+				},
+				getCreame() {
+					var that = this;
+					alert('拍照');
+					var cmr = plus.camera.getCamera();
+					cmr.captureImage(function(p) {
+						/*
+						plus.io.resolveLocalFileSystemURL(p, function(entry){
+							createItem(entry);
+						}, function(e){
+							alert('读取拍照文件错误：'+e.message);
+						});*/
+						//拍照成功,将照片路径转化为绝对路径,
+						that.uploadImg(plus.io.convertLocalFileSystemURL(p))
+					}, function(e) {
+						alert('失败：' + e.message);
+					}, {
+						filename: '_doc/camera/',
+						index: 1
+					});
+				},
+				getPhotoByGarly() {
+					var that = this;
+					alert('从相册中选择照片')
+					plus.gallery.pick(function(path) {
+						alert(path);
+						that.uploadImg(path)
+						//showImg( path );
+						//createItem(path);
+						return
+					}, function(e) {
+						alert('取消选择图片');
+					}, {
+						filter: 'image'
+					});
+				},
+				productClickHandler(item) {
+					//点击商品,进入商品详情页面
+					console.log(item.auctionId)
+				},
+				photoHandler() {
+					alert('点击了图片');
+				},
+				sayHandler() {
+					let that = this;
+					/**
+					 * 获得单词,输入语音识别获得的文字,输出文字中提取出来的要搜索的商品
+					 */
+					function getword(str) {
+						let res = ''
+						let words = '我要买一想的天穿戴用生搜索捆得给来代理进。今明后'
+						str = Array.from(str)
+						for (let i = 0, len = str.length; i < len; i++) {
+							if (words.indexOf(str[i]) == -1) {
+								res = res + str[i]
+							} else {
+								if (str[i] == '一') {
+									i++
+								}
+							}
+
+						}
+						return res;
+					}
+
+					/**
+					 * 开启语音识别
+					 */
+					function startReco() {
+						var options = {};
+						options.engine = 'iFly';
+						text = "";
+						alert("开始语音识别：");
+						plus.speech.startRecognize(options, function(s) {
+							text += s;
+							alert('' + text);
+							let word = getword(text);
+
+							if (!word) {
+								alert("语音识别错误,请重新进行语音识别")
+								startReco();
+							} else {
+								that.searchStr = word
+							}
+						}, function(e) {
+							alert("语音识别失败：" + e.message);
+						});
+					}
+
+					startReco();
+				}
+			},
+			watch: {
+				
+				searchStr(newVal, oldVal) {
+					var that = this;
+					if (newVal != oldVal) {
+						console.log('搜索')
+						that.search()
+					}
+				}
+			},
+			mounted() {
+				/* 
+				let that = this;
+				let urlTmp = searchURL + that.searchStr
+				console.log(urlTmp)
+				mui.get(urlTmp, function(data) {
+					console.log(JSON.stringify(data));
+					data = data.data;
+					that.searchData = data;
+					for (let i = 0, len = data.pageList.length; i < len; i++) {
+						data.pageList[i].pictUrl = 'http:' + data.pageList[i].pictUrl
+					}
+					that.productList = data.pageList;
+					that.navigatorData = data.navigator;
+					//this.navigatorData = data.navigator;
+				}, 'json')
+
+				//添加加载更多监听事件
+				let bottomEl = document.getElementById("pageBottom")
+				let getDataTimer = false;
+				//监听滚动事件
+				var scrollHandler = function(e) {
+					if (bottomEl.offsetTop - document.body.scrollTop < document.documentElement.clientHeight && !getDataTimer) {
+						getDataTimer = true;
+						mui.get(searchURL + that.searchStr + "&toPage=" + that.searchData.paginator.nextPage, function(data) {
+							data = data.data;
+							that.searchData = data;
+							for (let i = 0, len = data.pageList.length; i < len; i++) {
+								data.pageList[i].pictUrl = 'http:' + data.pageList[i].pictUrl
+							}
+							//将产品数据添加到产品数据中
+							for (let i = 0, len = data.pageList.length; i < len; i++) {
+								that.productList.push(data.pageList[i])
+							}
+							getDataTimer = false;
+						})
+					}
+				}
+
+				document.removeEventListener("scroll", scrollHandler);
+				document.addEventListener("scroll", scrollHandler)
+				*/
+			   let that = this;
+			   that.searchStr = searchStr;
+				that.search()
+				
+			},
+			computed: {
+
+			}
+		}).$mount('#app')
+		}
 	</script>
 </html>
